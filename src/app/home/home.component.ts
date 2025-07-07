@@ -1,4 +1,5 @@
-import { Component } from '@angular/core';
+import { Component, Inject, OnInit, PLATFORM_ID } from '@angular/core';
+import { isPlatformBrowser } from '@angular/common';
 import AOS from 'aos';
 
 
@@ -8,15 +9,12 @@ import AOS from 'aos';
   templateUrl: './home.component.html',
   styleUrl: './home.component.css'
 })
-export class HomeComponent {
-  
-  
+export class HomeComponent implements OnInit {
+  constructor(@Inject(PLATFORM_ID) private platformId: Object) {}
 
   ngOnInit() {
-      
-    AOS.init(
-      {duration : 1000}
-    );
+    if (isPlatformBrowser(this.platformId)) {
+      AOS.init({ duration: 1000 });
+    }
   }
-
 }
